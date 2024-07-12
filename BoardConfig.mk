@@ -101,6 +101,22 @@ BOARD_SAMSUNG_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system vendor p
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 BOARD_SURPRESS_SECURE_ERASE := true
 
+BOARD_ROOT_EXTRA_FOLDERS := \
+	cache \
+	carrier \
+	data_mirror \
+	efs \
+	linkerconfig \
+	odm_dlkm \
+	oem \
+	optics \
+	postinstall \
+	prism \
+	second_stage_resources \
+	spu \
+	system_ext \
+	vendor_dlkm
+
 # Platform
 TARGET_BOARD_PLATFORM := erd8835
 
@@ -117,8 +133,9 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Verified Boot
-BOARD_AVB_ENABLE := false
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_AVB_ENABLE := true
+BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
 BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
@@ -130,9 +147,9 @@ VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
 # Encryption & Misc
-#TW_INCLUDE_CRYPTO := true
-#TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
+TW_INCLUDE_CRYPTO := false
+TW_INCLUDE_CRYPTO_FBE := false
+TW_INCLUDE_FBE_METADATA_DECRYPT := false
 BOARD_USES_METADATA_PARTITION := true
 
 # TWRP Configuration
@@ -151,6 +168,9 @@ TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_NO_BIND_SYSTEM := true
 TW_NO_LEGACY_PROPS := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_INCLUDE_LPDUMP := true
+TW_INCLUDE_LPTOOLS := true
 TW_DEVICE_VERSION := TND_002
 
 # Copy Out
@@ -168,3 +188,5 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # Modules
 TW_LOAD_VENDOR_MODULES := $(shell echo \"$(shell ls $(DEVICE_PATH)/recovery/root/lib/modules)\")
 
+# OTA
+AB_OTA_UPDATER := false
