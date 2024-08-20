@@ -95,7 +95,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Recovery - Ramdisk
-BOARD_RAMDISK_USE_LZ4 := true
+#BOARD_RAMDISK_USE_LZ4 := true
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
